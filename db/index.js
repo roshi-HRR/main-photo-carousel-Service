@@ -4,12 +4,12 @@ mongoose.connect('mongodb://localhost/photos', { useNewUrlParser: true });
 
 let photoSchema = mongoose.Schema({ // using mongoose to create a schema
   id: Number,
-  photoURL: String,
+  photoUrl: String,
   description: String
 });
 
 let Photo = mongoose.model('Photo', photoSchema);
-
+ 
 
 
 

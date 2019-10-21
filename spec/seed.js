@@ -12,8 +12,9 @@ for (let i = 1; i < 100; i++) {
     photoUrl: faker.image.imageUrl(), 
     description: faker.lorem.sentence()
   })
+  console.log(typeof faker.image.imageUrl())
 }
-
+ 
 Photo.deleteMany((err) => {
   if(err){
     console.error(err)
