@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-var SinglePhoto = ({onPhotoClick, onPhotoHover, onePhoto}) =>(
-  <Pic onClick={onPhotoClick}>
+var SinglePhoto = ({onPhotoClick, onPhotoHover, onePhoto, showPhotoModal, handleClick}) =>(
+  <Pic onClick={showPhotoModal}>
   <div style= {{
     height: '100%',
     width: '100%',

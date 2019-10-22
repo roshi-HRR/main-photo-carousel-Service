@@ -1,10 +1,11 @@
 import React from 'react'
 
-var ViewPhotos = () => (
-  <button style={{
+var ViewPhotos = ({showPhotoModal}) => (
+  <button onClick={showPhotoModal} style={{
     top:'8%',
     left:'87%',
     position:'relative'
+    
   }}>ViewPhotos</button>
 )
   

@@ -2,6 +2,9 @@ import React from 'react';
 import MainPhotos from './MainPhotos.jsx'
 import Modal from './Modal.jsx';
 import styled from 'styled-Components';
+import ShareModal from './ShareButton.jsx';
+import faker from 'faker';
+
 
 
 
@@ -11,36 +14,50 @@ class App extends React.Component {
     //state
     this.state = {
       photoList: [],
-      homepagePhotos: ['https://images.unsplash.com/photo-1504700610630-ac6aba3536d3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80', 'https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350', 'https://images.unsplash.com/photo-1502082553048-f009c37129b9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80', 'https://unsplash.com/photos/MJceEjgpauU', 'https://images.unsplash.com/photo-1568495824441-a2052db83f64?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=657&q=80'], 
-      showModal: false
+      photoOne: '', 
+      photoTwo: '', 
+      photoThree: '',
+      photoFour: '',
+      photoFive: '',
+      currentPhoto: {id: '', url: ''},
+      showPhotoModal: false, 
+      showShareModal: false
     }
      
     //function bindings
-    this.onPhotoClick = this.onPhotoClick.bind(this);
-    this.onPhotoHover = this.onPhotoHover.bind(this);
-    this.showModal = this.showModal.bind(this);
+    this.showPhotoModal = this.showPhotoModal.bind(this);
+    this.showShareModal = this.showShareModal.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
-  showModal(e) {
+// Main Photo Modal! 
+
+  showPhotoModal(e) {
+    console.log(this.state.photoList)
     this.setState({
-      showModal: !this.state.showModal
+      showPhotoModal: !this.state.showPhotoModal
     });
   };
 
+//modal for users to share photos
 
-  onPhotoClick() {
-    //Open Mod
-
-    console.log(this.state.photoList)
-  }
-  onPhotoHover() {
-    //zoom into photo
-  }
-  //function to pick 5 photos when page is loaded
-  pickPhotos() {
-
-  }
-
+  showShareModal(e) {
+    this.setState({
+      showShareModal: !this.state.showShareModal
+    });
+  };
+  // onPhotoClick() {
+  //   //Open Mod
+  //   console.log(this.state.photoList)
+  // }
+   handleClick(id, url) {
+     this.setState({
+       currentPhoto: {id: id, url: url}
+     })
+     console.log(this.state.currentPhoto)
+   }
+  
+//request for pics from server/db/s3 bucket
   componentDidMount() {
     fetch('/api/photos')
       .then((result) => {
@@ -48,7 +65,12 @@ class App extends React.Component {
       })
       .then((response) => {
         this.setState({
-          photoList: response
+          photoList: response, 
+          photoOne: response[Math.floor(Math.random() * Math.floor(35) + 1)].photoUrl,
+          photoTwo: response[Math.floor(Math.random() * Math.floor(35) + 1)].photoUrl,
+          photoThree: response[Math.floor(Math.random() * Math.floor(35) + 1)].photoUrl,
+          photoFour: response[Math.floor(Math.random() * Math.floor(35) + 1)].photoUrl,
+          photoFive: response[Math.floor(Math.random() * Math.floor(35) + 1)].photoUrl
         })
       })
       .catch()
@@ -59,12 +81,12 @@ class App extends React.Component {
     <div style= {{
       height: '500px'
     }}>
-    <MainPhotos onPhotoClick={this.onPhotoClick} onPhotoHover={this.onPhotoHover} photoList={this.state.photoList} homepagePhotos={this.state.homepagePhotos}/>
+    <MainPhotos onPhotoClick={this.onPhotoClick} onPhotoHover={this.onPhotoHover} photoList={this.state.photoList} homepagePhotos={this.state.homepagePhotos} photoOne={this.state.photoOne} photoTwo={this.state.photoTwo} photoThree={this.state.photoThree} photoFour={this.state.photoFour} photoFive={this.state.photoFive} showPhotoModal={this.showPhotoModal} showShareModal={this.showShareModal} currentPhoto={this.state.currentPhoto} />
 
+    {/* <ShareModal showShareModal={this.state.showShareModal} onClose={this.showShareModal} /> */}
 
-    <Modal showModal={this.state.showModal} onClose={this.showModal}/>
+    <Modal showPhotoModal={this.state.showPhotoModal} onClose={this.showPhotoModal} photoOne={this.state.photoOne} photoTwo={this.state.photoTwo} photoThree={this.state.photoThree} photoFour={this.state.photoFour} photoFive={this.state.photoFive} handleClick={this.handleClick}/>
 
-  
     </div>
     )
   }

@@ -1,9 +1,13 @@
-import React from 'react'
+// import React from 'react'
 
-var Share = () => (
-  <button>Share</button>
-)
+// var SharePhotos = ({showShareModal}) => (
+//   <button onClick={showShareModal} style={{
+//     top:'8%',
+//     left:'87%',
+//     position:'relative'
+//   }}>Shasdfsdre</button>
+// )
   
 
 
-export default Share;
+// export default SharePhotos;

@@ -1,65 +1,68 @@
 import React from 'react';
 import SinglePhoto from './SinglePhoto.jsx';
-import '../../public/main.css';
 import styled from 'styled-components';
 import ViewPhotos from './ViewPhotosButton.jsx';
 import Save from './SaveButton.jsx';
-import Share from './ShareButton.jsx';
+// import ShareModal from './ShareModal.jsx';
+// import SharePhotos from './ShareButton.jsx'
 
-var MainPhotos = ({onPhotoClick, photoList, onPhotoHover, homepagePhotos}) => (
+var MainPhotos = ({onPhotoClick, photoList, showPhotoModal, showShareModal, photoOne, photoTwo, photoThree, photoFour, photoFive, handleClick}) => (
   <div style = {{
     height: '500px'
   }}>
   
   <Main >
-  <ViewPhotosButton>
-  <ViewPhotos />
-  </ViewPhotosButton>
    <FirstPhoto>
    <SinglePhoto 
-   onePhoto={homepagePhotos[0]}
+   onePhoto={photoOne}
    onPhotoClick={onPhotoClick} 
-   onPhotoHover={onPhotoHover} 
+   handleClick={handleClick} 
+   showPhotoModal={showPhotoModal} 
    />
    </FirstPhoto>
    <SecondPhoto>
    <SinglePhoto 
-   onePhoto={homepagePhotos[1]}
-   onPhotoClick={onPhotoClick} 
-   onPhotoHover={onPhotoHover} 
+   onePhoto={photoTwo}
+   onPhotoClick={onPhotoClick}
+   handleClick={handleClick}  
+   showPhotoModal={showPhotoModal} 
    />
    </SecondPhoto>
    <ThirdPhoto>
    <SinglePhoto 
-   onePhoto={homepagePhotos[2]}
-   onPhotoClick={onPhotoClick} 
-   onPhotoHover={onPhotoHover} 
+   onePhoto={photoThree}
+   onPhotoClick={onPhotoClick}  
+   handleClick={handleClick} 
+   showPhotoModal={showPhotoModal} 
    />
    </ThirdPhoto>
    <FourthPhoto>
    <SinglePhoto 
-   onePhoto={homepagePhotos[3]}
-   onPhotoClick={onPhotoClick} 
-   onPhotoHover={onPhotoHover} 
+   onePhoto={photoFour}
+   onPhotoClick={onPhotoClick}
+   handleClick={handleClick}  
+   showPhotoModal={showPhotoModal}  
    />
    </FourthPhoto>
    <FifthPhoto>
    <SinglePhoto 
-   onePhoto={homepagePhotos[4]}
-   onPhotoClick={onPhotoClick} 
-   onPhotoHover={onPhotoHover} 
+   onePhoto={photoFive}
+   onPhotoClick={onPhotoClick}  
+   handleClick={handleClick} 
+   showPhotoModal={showPhotoModal} 
    />
    </FifthPhoto>
- 
   </Main>
-
- 
+  <ViewPhotosButton>
+  <ViewPhotos showPhotoModal={showPhotoModal} />
+  </ViewPhotosButton>
 
   {/* <SharePhotosButton>
-  <Share />
-  </SharePhotosButton>
+  <SharePhotos showShareModal={showShareModal}/>
+  </SharePhotosButton> */}
+  
 
-  <SavePhotosButton>
+  {/* <SavePhotosButton>
   <Save />
   </SavePhotosButton> */}
   </div>
@@ -71,8 +74,11 @@ const Main = styled.div`
   display: grid;
   grid-template-columns: 50% 25% 25%;
   grid-template-rows: 50% 50%;
-  border: 2px solid black;
+  border: 1px #484848
   height: 100%
+    overflow: hidden !important;
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
 `;
 
 const FirstPhoto = styled.div`
@@ -81,6 +87,11 @@ const FirstPhoto = styled.div`
   grid-column-end: 2;
   grid-row-start: 1;
   grid-row-end: 3;
+  border: .5px #484848
+  overflow: hidden !important;
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
+  
 `;
 
 const SecondPhoto = styled.div`
@@ -89,6 +100,11 @@ const SecondPhoto = styled.div`
   grid-column-end: 2;
   grid-row-start: 1;
   grid-row-end: 1;
+  transition: -ms-transform 450ms cubic-bezier(0.645, 0.045, 0.355, 1) 0s, -webkit-transform 450ms cubic-bezier(0.645, 0.045, 0.355, 1) 0s, transform 450ms cubic-bezier(0.645, 0.045, 0.355, 1) 0s, opacity 450ms cubic-bezier(0.645, 0.045, 0.355, 1) 0s !important;
+  border: .5px #484848
+  overflow: hidden !important;
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
 `;
 const ThirdPhoto = styled.div`
   display: grid;
@@ -96,6 +112,10 @@ const ThirdPhoto = styled.div`
   grid-column-end: 3;
   grid-row-start: 1;
   grid-row-end: 1;
+  border: .5px #484848
+  overflow: hidden !important;
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
 `;
 const FourthPhoto = styled.div`
   display: grid;
@@ -103,6 +123,10 @@ const FourthPhoto = styled.div`
   grid-column-end: 2;
   grid-row-start: 2;
   grid-row-end: 2;
+  border: .5px #484848
+  overflow: hidden !important;
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
 `;
 const FifthPhoto = styled.div`
   display: grid;
@@ -110,11 +134,11 @@ const FifthPhoto = styled.div`
   grid-column-end: 3;
   grid-row-start: 2;
   grid-row-end: 2;
+  border: .5px #484848;
+  overflow: hidden !important;
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
 `;
-
-
-
-
 
 
 const ViewPhotosButton = styled.div`
@@ -122,13 +146,23 @@ const ViewPhotosButton = styled.div`
   left:'87%',
   position:'relative',
   color:'white'
+  font-size: var(--font-button-small-font-size, 14px) !important;
+  line-height: var(--font-button-small-line-height, 22px) !important;
+  letter-spacing: var(--font-button-small-letter-spacing, normal) !important;
+  font-family: var(--font-button-small-font-family, Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif) !important;
+  text-transform: var(--font-button-small-text-transform, undefined) !important;
+  padding-top: var(--font-button-small-padding-top, undefined) !important;
+  padding-bottom: var(--font-button-small-padding-bottom, undefined) !important;
 `;
-const SharePhotosButton = styled.div`
+// const SharePhotosButton = styled.div`
+//   top:'8',
+//   left:'70',
+//   position:'relative',
+//   color: 'white
+// `;
+// const SavePhotosButton = styled.div`
   
-`;
-const SavePhotosButton = styled.div`
-  
-`;
+// `;
  
 
 

@@ -8,8 +8,8 @@ const getPhotos = async function() {
   //     callback(null, result)
   //   }
   // }).limit(12)
-
-  let result = await db.find().limit(12)
+  //let random = Math.floor(Math.random() * Math.floor(36))
+  let result = await db.find().limit(36)
   return result
 }
 
