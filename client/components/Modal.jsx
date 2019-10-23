@@ -1,6 +1,6 @@
 import React from "react";
 import styled from 'styled-components';
-import { X } from 'react-feather';
+import { X, FileText } from 'react-feather';
 import faker from 'faker';
 // import MainCarousel from './MainCarousel.jsx';
 
@@ -30,7 +30,8 @@ export default class Modal extends React.Component {
       }
     }
 
-    onClose(e) { 
+    onClose(e) {
+      e.persist()
       if (this.props.onClose) {
         this.props.onClose(e);
       }
@@ -46,37 +47,47 @@ export default class Modal extends React.Component {
               <div>{this.props.children}</div>
                 <Contents>
                     <Ax>
-                        <X onClick={e => this.onClose(e)} size={30}/>
+                        <X onClick={e => this.onClose(e)} size={40}/>
                     </Ax>
                     <div className="container" style={{
-                      margin: 'auto', 
-                      height: '200px',
-                      width: '200px',
-                      maxHeight: '200px', 
-                      maxWidth: '200px'
+                      display:'flex',
+                      flexDirection: 'row',
+                      margin: 'auto'
                     }}>
-                    <i className="fas fa-chevron-right" onClick={this.increaseCur} style={{
-                      float:'right'
-                    }}></i>
-                    <Image><img src={this.props.list[this.state.currentPhoto].photoUrl}/></Image>
                     <i className="fas fa-chevron-left" onClick={this.decreaseCur} style={{
-                      float: 'left'
+                      flexDirection: 'left',
+                      margin: 'auto',
+                      padding: '10px'
                     }}></i>
+                    <Image><img src={this.props.list[this.state.currentPhoto].photoUrl} style={{
+                       borderRadius: '20px',
+                       objectFit: 'cover'
+                    }}/></Image>
+                    <i className="fas fa-chevron-right" onClick={this.increaseCur} style={{
+                      flexDirection: 'right',
+                      margin: 'auto',
+                      padding: '10px'
+                    }}></i>
+                    <Description>
+                      <div style={{
+                        fontWeight: 'bold'
+                      }}>{`${this.state.currentPhoto + 1}/${this.props.list.length}`} </div>
+                    <div>{this.props.list[this.state.currentPhoto].description}
                     </div>
-                   
-                    <Description>{`${this.state.currentPhoto + 1}/${this.props.list.length}`} {this.props.list[this.state.currentPhoto].description}Photo Verified by Airbnb
+                    <div style={{
+                      fontSize: '10px'
+                    }}>
+                    Photo Verified by Airbnb
+                    </div>
                     </Description>
+                    </div>
+                    {/* <Description>{`${this.state.currentPhoto + 1}/${this.props.list.length}`} {this.props.list[this.state.currentPhoto].description}Photo Verified by Airbnb
+                    </Description> */}
                 </Contents>
             </Container>
           );
     }
   }
-
-  
- const Carousel = styled.div`
-    
-  `;
-
 
 
   const Container = styled.div`
@@ -98,7 +109,7 @@ export default class Modal extends React.Component {
     flex-direction: column;
   `;
 
-  
+
 
   const Ax = styled.span`
     display: inline-block;
@@ -121,23 +132,25 @@ export default class Modal extends React.Component {
     padding-left: 20px;
     font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif ;
     color: black;
-    margin:0px 10px 10px 30px;
-    
+    margin:30px 10px 10px 0px;
+
   `;
 
   const Image = styled.div`
-    width: 420px;
-    height: 200px;
+    width: 600px;
+    height: 450px;
     cursor: pointer;
     position: relative;
     overflow: hidden;
-    display: inline-block;
+    display: flex;
     padding-top: 10px;
     padding-bottom: 10px;
     padding-left: 22px;
     padding-right: 22px;
     background: rgb(255, 255, 255);
     margin: 10px auto 0 auto;
+    justify-content: space-around;
+    object-fit: cover;
+
   `;
 
-    

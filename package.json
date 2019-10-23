@@ -33,7 +33,6 @@
     "@fortawesome/fontawesome-free": "^5.11.2",
     "babel-core": "^6.26.3",
     "babel-loader": "^8.0.6",
-    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
     "jest": "^24.9.0",
     "superagent": "^5.1.0",
     "supertest": "^4.0.2",
