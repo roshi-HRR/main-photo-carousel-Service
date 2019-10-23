@@ -6,7 +6,7 @@ import Save from './SaveButton.jsx';
 // import ShareModal from './ShareModal.jsx';
 // import SharePhotos from './ShareButton.jsx'
 
-var MainPhotos = ({onPhotoClick, photoList, showPhotoModal, showShareModal, photoOne, photoTwo, photoThree, photoFour, photoFive, handleClick}) => (
+var MainPhotos = ({onPhotoClick, photoList, showPhotoModal, showShareModal, photoOne, photoTwo, photoThree, photoFour, photoFive, handleClick, homepagePhotos}) => (
   <div style = {{
     height: '500px'
   }}>
@@ -14,47 +14,49 @@ var MainPhotos = ({onPhotoClick, photoList, showPhotoModal, showShareModal, phot
   <Main >
    <FirstPhoto>
    <SinglePhoto 
-   onePhoto={photoOne}
-   onPhotoClick={onPhotoClick} 
+   onePhoto={homepagePhotos[0]}
+   index={0}
    handleClick={handleClick} 
    showPhotoModal={showPhotoModal} 
    />
    </FirstPhoto>
    <SecondPhoto>
    <SinglePhoto 
-   onePhoto={photoTwo}
-   onPhotoClick={onPhotoClick}
+   onePhoto={homepagePhotos[1]}
+   index={1}
    handleClick={handleClick}  
    showPhotoModal={showPhotoModal} 
    />
    </SecondPhoto>
    <ThirdPhoto>
    <SinglePhoto 
-   onePhoto={photoThree}
-   onPhotoClick={onPhotoClick}  
+   onePhoto={homepagePhotos[2]} 
+   index={2}
    handleClick={handleClick} 
    showPhotoModal={showPhotoModal} 
    />
    </ThirdPhoto>
    <FourthPhoto>
    <SinglePhoto 
-   onePhoto={photoFour}
-   onPhotoClick={onPhotoClick}
+   onePhoto={homepagePhotos[3]}
+   index={3}
    handleClick={handleClick}  
    showPhotoModal={showPhotoModal}  
    />
    </FourthPhoto>
    <FifthPhoto>
    <SinglePhoto 
-   onePhoto={photoFive}
-   onPhotoClick={onPhotoClick}  
+   onePhoto={homepagePhotos[4]} 
+   index={4}
    handleClick={handleClick} 
    showPhotoModal={showPhotoModal} 
    />
    </FifthPhoto>
   </Main>
   <ViewPhotosButton>
-  <ViewPhotos showPhotoModal={showPhotoModal} />
+  <ViewPhotos 
+  index={0}
+  showPhotoModal={showPhotoModal} />
   </ViewPhotosButton>
 
   {/* <SharePhotosButton>
@@ -76,9 +78,9 @@ const Main = styled.div`
   grid-template-rows: 50% 50%;
   border: 1px #484848
   height: 100%
-    overflow: hidden !important;
-    overflow-x: hidden !important;
-    overflow-y: hidden !important;
+  overflow: hidden !important;
+  overflow-x: hidden !important;
+  overflow-y: hidden !important;
 `;
 
 const FirstPhoto = styled.div`
@@ -88,6 +90,8 @@ const FirstPhoto = styled.div`
   grid-row-start: 1;
   grid-row-end: 3;
   border: .5px #484848
+  max-width: 100%;
+  max-height: 100%;
   overflow: hidden !important;
     overflow-x: hidden !important;
     overflow-y: hidden !important;

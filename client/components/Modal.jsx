@@ -2,18 +2,40 @@ import React from "react";
 import styled from 'styled-components';
 import { X } from 'react-feather';
 import faker from 'faker';
-import MainCarousel from './MainCarousel.jsx';
+// import MainCarousel from './MainCarousel.jsx';
 
 export default class Modal extends React.Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+          currentPhoto: this.props.currentPhotoIndex
+        }
+        this.increaseCur = this.increaseCur.bind(this);
+        this.decreaseCur = this.decreaseCur.bind(this);
     };
+    increaseCur() {
+      if (this.state.currentPhoto < this.props.list.length){
+        this.setState({
+          currentPhoto: this.state.currentPhoto + 1
+        })
+      }
+    }
+
+    decreaseCur() {
+      if (this.state.currentPhoto > 0){
+        this.setState({
+          currentPhoto: this.state.currentPhoto - 1
+        })
+      }
+    }
 
     onClose(e) { 
       if (this.props.onClose) {
         this.props.onClose(e);
       }
       };
+
 
     render() {
         if(!this.props.showPhotoModal) {
@@ -26,10 +48,23 @@ export default class Modal extends React.Component {
                     <Ax>
                         <X onClick={e => this.onClose(e)} size={30}/>
                     </Ax>
-                    <Google><img src={this.props.photoOne}/></Google>
-                    <MainCarousel></MainCarousel>
-                    <Description>3/30     
-                    ${faker.lorem.paragraph()}Photo Verified by Airbnb
+                    <div className="container" style={{
+                      margin: 'auto', 
+                      height: '200px',
+                      width: '200px',
+                      maxHeight: '200px', 
+                      maxWidth: '200px'
+                    }}>
+                    <i className="fas fa-chevron-right" onClick={this.increaseCur} style={{
+                      float:'right'
+                    }}></i>
+                    <Image><img src={this.props.list[this.state.currentPhoto].photoUrl}/></Image>
+                    <i className="fas fa-chevron-left" onClick={this.decreaseCur} style={{
+                      float: 'left'
+                    }}></i>
+                    </div>
+                   
+                    <Description>{`${this.state.currentPhoto + 1}/${this.props.list.length}`} {this.props.list[this.state.currentPhoto].description}Photo Verified by Airbnb
                     </Description>
                 </Contents>
             </Container>
@@ -54,12 +89,8 @@ export default class Modal extends React.Component {
     bottom: 0;
     margin: auto auto;
     align-items: center;
-    backface-visibility: hidden;
     background: white;
     border: 1px solid #ccc;
-    -webkit-box-shadow: -1px 1px 5000px 900px rgba(0,0,0,0.75);
-    /* -moz-box-shadow: -1px 1px 5px 9px rgba(0,0,0,0.75); */
-    /* box-shadow: -1px 1px 5px 9px rgba(0,0,0,0.75); */
   `;
 
   const Contents = styled.div`
@@ -78,59 +109,34 @@ export default class Modal extends React.Component {
   `
 
   const Description = styled.div`
-    width: 420px;
+    width: 200px;
     height: 200px;
-    cursor: pointer !important;
-    transition-property: background, border-color, color !important;
-    transition-duration: 0.2s !important;
-    transition-timing-function: ease-out !important;
-    position: relative !important;
-    display: inline-block !important;
-    text-align: left !important;    
-    font-size: 16px !important;
-    line-height: 24px !important;
-    letter-spacing: normal !important;
-    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif !important;
-    padding-top: 10px !important;
-    padding-bottom: 10px !important;
-    font-weight: 800 !important;
-    padding-left: 22px !important;
-    padding-right: 22px !important;
-    color: black !important;
-    text-decoration: none !important;
-    border-radius: 4px !important;
-    border-width: 2px !important;
-    border-style: solid !important;
-    background: white !important;
-    border-color: transparent !important;
-    margin:400px 10px 10px 0px;
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: normal;
+    padding-left: 20px;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif ;
+    color: black;
+    margin:0px 10px 10px 30px;
     
   `;
 
-  const Google = styled.div`
+  const Image = styled.div`
     width: 420px;
-    height: 23px;
-    cursor: pointer !important;
-    transition-property: background, border-color, color !important;
-    transition-duration: 0.2s !important;
-    transition-timing-function: ease-out !important;
-    position: relative !important;
-    display: inline-block !important;
-    text-align: center !important;
-    font-size: 16px !important;
-    line-height: 24px !important;
-    letter-spacing: normal !important;
-    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif !important;
-    padding-top: 10px !important;
-    padding-bottom: 10px !important;
-    font-weight: 800 !important;
-    padding-left: 22px !important;
-    padding-right: 22px !important;
-    color: rgb(72, 72, 72) !important;
-    text-decoration: none !important;
-    
-    background: rgb(255, 255, 255) !important;
-    border-color: rgb(118, 118, 118) !important;
+    height: 200px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 22px;
+    padding-right: 22px;
+    background: rgb(255, 255, 255);
     margin: 10px auto 0 auto;
   `;
 

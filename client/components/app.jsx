@@ -14,12 +14,8 @@ class App extends React.Component {
     //state
     this.state = {
       photoList: [],
-      photoOne: '', 
-      photoTwo: '', 
-      photoThree: '',
-      photoFour: '',
-      photoFive: '',
-      currentPhoto: {id: '', url: ''},
+      homepagePhotos: [],
+      currentPhotoIndex: 1,
       showPhotoModal: false, 
       showShareModal: false
     }
@@ -27,14 +23,13 @@ class App extends React.Component {
     //function bindings
     this.showPhotoModal = this.showPhotoModal.bind(this);
     this.showShareModal = this.showShareModal.bind(this);
-    this.handleClick = this.handleClick.bind(this);
   }
 
 // Main Photo Modal! 
 
-  showPhotoModal(e) {
-    console.log(this.state.photoList)
+  showPhotoModal(index) {
     this.setState({
+      currentPhotoIndex: index,
       showPhotoModal: !this.state.showPhotoModal
     });
   };
@@ -46,16 +41,6 @@ class App extends React.Component {
       showShareModal: !this.state.showShareModal
     });
   };
-  // onPhotoClick() {
-  //   //Open Mod
-  //   console.log(this.state.photoList)
-  // }
-   handleClick(id, url) {
-     this.setState({
-       currentPhoto: {id: id, url: url}
-     })
-     console.log(this.state.currentPhoto)
-   }
   
 //request for pics from server/db/s3 bucket
   componentDidMount() {
@@ -66,29 +51,41 @@ class App extends React.Component {
       .then((response) => {
         this.setState({
           photoList: response, 
-          photoOne: response[Math.floor(Math.random() * Math.floor(35) + 1)].photoUrl,
-          photoTwo: response[Math.floor(Math.random() * Math.floor(35) + 1)].photoUrl,
-          photoThree: response[Math.floor(Math.random() * Math.floor(35) + 1)].photoUrl,
-          photoFour: response[Math.floor(Math.random() * Math.floor(35) + 1)].photoUrl,
-          photoFive: response[Math.floor(Math.random() * Math.floor(35) + 1)].photoUrl
+          homepagePhotos: response.slice(0, 5).map((photo) => {
+            return photo.photoUrl
+          })
         })
       })
       .catch()
   }
 
   render() {
+    if(this.state.showPhotoModal) {
+      return (
+
+      <div style= {{
+        height: '500px'
+      }}>
+
+        <MainPhotos onPhotoClick={this.onPhotoClick} onPhotoHover={this.onPhotoHover} photoList={this.state.photoList} homepagePhotos={this.state.homepagePhotos} showPhotoModal={this.showPhotoModal} showShareModal={this.showShareModal} currentPhoto={this.state.currentPhoto} />
+
+        <Modal showPhotoModal={this.state.showPhotoModal} onClose={this.showPhotoModal} handleClick={this.handleClick} list={this.state.photoList} currentPhotoIndex={this.state.currentPhotoIndex}/>
+      </div>
+      )
+    } else {
     return (
-    <div style= {{
-      height: '500px'
-    }}>
-    <MainPhotos onPhotoClick={this.onPhotoClick} onPhotoHover={this.onPhotoHover} photoList={this.state.photoList} homepagePhotos={this.state.homepagePhotos} photoOne={this.state.photoOne} photoTwo={this.state.photoTwo} photoThree={this.state.photoThree} photoFour={this.state.photoFour} photoFive={this.state.photoFive} showPhotoModal={this.showPhotoModal} showShareModal={this.showShareModal} currentPhoto={this.state.currentPhoto} />
+      <div style= {{
+        height: '500px'
+      }}>
+      <MainPhotos onPhotoClick={this.onPhotoClick} onPhotoHover={this.onPhotoHover} photoList={this.state.photoList} homepagePhotos={this.state.homepagePhotos} photoOne={this.state.photoOne} photoTwo={this.state.photoTwo} photoThree={this.state.photoThree} photoFour={this.state.photoFour} photoFive={this.state.photoFive} showPhotoModal={this.showPhotoModal} showShareModal={this.showShareModal} currentPhoto={this.state.currentPhoto} />
 
-    {/* <ShareModal showShareModal={this.state.showShareModal} onClose={this.showShareModal} /> */}
+      {/* <ShareModal showShareModal={this.state.showShareModal} onClose={this.showShareModal} /> */}
 
-    <Modal showPhotoModal={this.state.showPhotoModal} onClose={this.showPhotoModal} photoOne={this.state.photoOne} photoTwo={this.state.photoTwo} photoThree={this.state.photoThree} photoFour={this.state.photoFour} photoFive={this.state.photoFive} handleClick={this.handleClick}/>
 
-    </div>
-    )
+
+      </div>
+      )
+    }
   }
  
 }

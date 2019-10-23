@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-var SinglePhoto = ({onPhotoClick, onPhotoHover, onePhoto, showPhotoModal, handleClick}) =>(
-  <Pic onClick={showPhotoModal}>
+var SinglePhoto = ({onPhotoClick, onPhotoHover, onePhoto, showPhotoModal, handleClick, index}) =>(
+  <Pic onClick={() => {
+    showPhotoModal(index)
+  }}>
   <div style= {{
     height: '100%',
     width: '100%',
@@ -15,10 +17,9 @@ var SinglePhoto = ({onPhotoClick, onPhotoHover, onePhoto, showPhotoModal, handle
 )
 
 const Pic = styled.div`
-    overflow: hidden;
-    &: hover {
-      transform: scale(1.1)
-    }
+  &: hover {
+    transform: scale(1.1)
+  }
 `;
 
 
