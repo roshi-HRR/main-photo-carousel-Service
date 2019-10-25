@@ -4,7 +4,7 @@ mongoose.connect('mongodb://localhost/photos', { useNewUrlParser: true });
 
 let photoSchema = mongoose.Schema({ // using mongoose to create a schema
   id: Number,
-  photoUrl: String,
+  photoUrl: [String],            //String,
   description: String
 });
 

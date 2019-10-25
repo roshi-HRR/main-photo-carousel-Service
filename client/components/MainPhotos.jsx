@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import ViewPhotos from './ViewPhotosButton.jsx';
 import SavePhotos from './SaveButton.jsx';
 import SaveModal from './SaveModal.jsx';
-import SharePhotos from './ShareButton.jsx'
+import SharePhotos from './ShareButton.jsx';
 
 var MainPhotos = ({onPhotoClick, photoList, showPhotoModal, showSaveModal,handleClick, homepagePhotos}) => (
   <div style = {{
@@ -144,27 +144,5 @@ const FifthPhoto = styled.div`
   overflow-x: hidden;
   overflow-y: hidden;
 `;
-
-
-// const ViewPhotosButton = styled.button`
-//   top:'8%',
-//   left:'87%',
-//   position:'relative',
-//   color:'white'
-
-// `;
-// const SharePhotosButton = styled.div`
-//   top:'8',
-//   left:'70',
-//   position:'relative',
-//   color: 'white
-// `;
-// const SavePhotosButton = styled.div`
-
-// `;
-
-
-
-
 
 export default MainPhotos;

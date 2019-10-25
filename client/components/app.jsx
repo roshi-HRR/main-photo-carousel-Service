@@ -9,6 +9,8 @@ import faker from 'faker';
 
 
 
+
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -46,20 +48,28 @@ class App extends React.Component {
 
 
 //request for pics from server/db/s3 bucket
-  componentDidMount() {
-    fetch('/api/photos')
+ componentDidMount() {
+    const url = new URL(window.location.href);
+    const houseId = url.searchParams.get('house_id');
+    // const house = request.data[0];
+
+    fetch(`/api/photos/${houseId}`)
       .then((result) => {
         return result.json()
       })
       .then((response) => {
+        console.log(response)
         this.setState({
-          photoList: response,
-          homepagePhotos: response.slice(0, 5).map((photo) => {
-            return photo.photoUrl
-          })
+          photoList: response[0].photoUrl,
+          homepagePhotos: response[0].photoUrl.slice(0, 5)
         })
+        //access the id of url, and display that specific object
+        //[url, url, url]
+        console.log('HOMEPAGEPHOTOS ', this.state.homepagePhotos, 'PHOTOLIST ', this.state.photoList)
       })
-      .catch()
+      .catch((err)=> {
+        console.error(err)
+      })
   }
 
   render() {
@@ -72,7 +82,7 @@ class App extends React.Component {
 
         <MainPhotos onPhotoClick={this.onPhotoClick} onPhotoHover={this.onPhotoHover} photoList={this.state.photoList} homepagePhotos={this.state.homepagePhotos} showPhotoModal={this.showPhotoModal} showSaveModal={this.showSaveModal} currentPhoto={this.state.currentPhoto} />
 
-        <Modal showPhotoModal={this.state.showPhotoModal} onClose={this.showPhotoModal} list={this.state.photoList} currentPhotoIndex={this.state.currentPhotoIndex}/>
+        <Modal showPhotoModal={this.state.showPhotoModal} onClose={this.showPhotoModal} list={this.state.photoList} currentPhotoIndex={this.state.currentPhotoIndex} homepagePhotos={this.state.homepagePhotos}/>
       </div>
       )
     } else if (this.state.showSaveModal) {

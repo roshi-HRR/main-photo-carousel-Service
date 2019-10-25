@@ -2,7 +2,8 @@ import React from "react";
 import styled from 'styled-components';
 import { X, FileText } from 'react-feather';
 import faker from 'faker';
-// import MainCarousel from './MainCarousel.jsx';
+import MiniSlider from './MiniSlider.jsx';
+
 
 export default class Modal extends React.Component {
     constructor(props) {
@@ -15,7 +16,7 @@ export default class Modal extends React.Component {
         this.decreaseCur = this.decreaseCur.bind(this);
     };
     increaseCur() {
-      if (this.state.currentPhoto < this.props.list.length){
+      if (this.state.currentPhoto < this.props.list.length - 1){
         this.setState({
           currentPhoto: this.state.currentPhoto + 1
         })
@@ -57,32 +58,33 @@ export default class Modal extends React.Component {
                     <i className="fas fa-chevron-left" onClick={this.decreaseCur} style={{
                       flexDirection: 'left',
                       margin: 'auto',
-                      padding: '10px'
+                      padding: '5px'
                     }}></i>
-                    <Image><img src={this.props.list[this.state.currentPhoto].photoUrl} style={{
+                    <Image><img src={this.props.list[this.state.currentPhoto]} style={{
                        borderRadius: '20px',
                        objectFit: 'cover'
                     }}/></Image>
                     <i className="fas fa-chevron-right" onClick={this.increaseCur} style={{
                       flexDirection: 'right',
                       margin: 'auto',
-                      padding: '10px'
+                      padding: '5px'
                     }}></i>
+                    <MiniSlider list={this.props.list} homepagePhoto={this.props.homepagePhoto} currentPhoto={this.state.currentPhoto}/>
                     <Description>
                       <div style={{
-                        fontWeight: 'bold'
+                        fontWeight: 'bold',
+                        textAlign: 'left'
                       }}>{`${this.state.currentPhoto + 1}/${this.props.list.length}`} </div>
                     <div>{this.props.list[this.state.currentPhoto].description}
                     </div>
                     <div style={{
-                      fontSize: '10px'
+                      fontSize: '10px',
+
                     }}>
                     Photo Verified by Airbnb
                     </div>
                     </Description>
                     </div>
-                    {/* <Description>{`${this.state.currentPhoto + 1}/${this.props.list.length}`} {this.props.list[this.state.currentPhoto].description}Photo Verified by Airbnb
-                    </Description> */}
                 </Contents>
             </Container>
           );
@@ -92,8 +94,8 @@ export default class Modal extends React.Component {
 
   const Container = styled.div`
     position: fixed;
-    width: 1400px;
-    height: 700px;
+    width: 1430px;
+    height: 720px;
     top: 1;
     left: 0;
     right: 0;
@@ -125,14 +127,14 @@ export default class Modal extends React.Component {
     cursor: pointer;
     position: relative;
     display: inline-block;
-    text-align: center;
+    text-align: left;
     font-size: 16px;
     line-height: 24px;
     letter-spacing: normal;
     padding-left: 20px;
     font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif ;
     color: black;
-    margin:30px 10px 10px 0px;
+    margin:150px 10px 10px -275px;
 
   `;
 
