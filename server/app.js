@@ -1,6 +1,5 @@
 const express = require('express');
 let app = express();
-const port = 3333;
 
 //require
 const db = require('../db/index.js');

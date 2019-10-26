@@ -51,6 +51,7 @@ class App extends React.Component {
  componentDidMount() {
     const url = new URL(window.location.href);
     const houseId = url.searchParams.get('house_id');
+    console.log('HOUSE ID ', houseId)
     // const house = request.data[0];
 
     fetch(`/api/photos/${houseId}`)
