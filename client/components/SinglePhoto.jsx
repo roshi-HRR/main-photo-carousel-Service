@@ -8,8 +8,8 @@ var SinglePhoto = ({onPhotoClick, onPhotoHover, onePhoto, showPhotoModal, handle
   <div style= {{
     height: '100%',
     width: '100%',
-    backgroundImage: `url("${onePhoto}")`, 
-    backgroundSize:'cover', 
+    backgroundImage: `url("${onePhoto}")`,
+    backgroundSize:'cover'
   }}>
   </div>
   </Pic>
@@ -20,6 +20,7 @@ const Pic = styled.div`
   &: hover {
     transform: scale(1.1)
   }
+
 `;
 
 
