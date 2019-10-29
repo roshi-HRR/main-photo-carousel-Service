@@ -11,7 +11,7 @@ const helpers = require('../db/helpers/helper.js');
 app.use(express.static('public'))
 
 //app.get
-app.get('/api/photos', async (req, res) => {
+app.get('/api/houses', async (req, res) => {
   try {
   let response = await getPhotos()
   
@@ -23,7 +23,7 @@ app.get('/api/photos', async (req, res) => {
 })
 
 
-app.get('/api/photos/:id', (req, res) => {
+app.get('/api/houses/:id', (req, res) => {
   console.log(req.params.id)
   helpers.getHouseById(req.params.id, (err, results) => {
     try {
