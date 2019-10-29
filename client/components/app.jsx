@@ -54,7 +54,7 @@ class App extends React.Component {
     console.log('HOUSE ID ', houseId)
     // const house = request.data[0];
 
-    fetch(`/api/houses/?id=${houseId}`)
+    fetch(`/api/photos/?id=${houseId}`)
       .then((result) => {
         return result.json()
       })
